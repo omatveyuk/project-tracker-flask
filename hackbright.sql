@@ -120,6 +120,8 @@ sdevelops	Blockly	100
 COPY projects (id, title, description, max_grade) FROM stdin;
 1	Markov	Tweets generated from Markov chains	50
 2	Blockly	Programmatic Logic Puzzle Game	10
+3	puzzle	A computer game with puzzles for hackbright students to solve	40
+4	puzzle	A computer game with puzzles for hackbright students to solve	40
 \.
 
 
@@ -127,7 +129,7 @@ COPY projects (id, title, description, max_grade) FROM stdin;
 -- Name: projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user
 --
 
-SELECT pg_catalog.setval('projects_id_seq', 2, true);
+SELECT pg_catalog.setval('projects_id_seq', 4, true);
 
 
 --

@@ -15,6 +15,7 @@ def get_homepage():
                          students=students,
                          projects=projects)
 
+# Base routes
 
 @app.route("/student")
 def get_student():
@@ -28,44 +29,6 @@ def get_student():
                            last=last,
                            github=github,
                            rows=rows)
-
-
-@app.route("/student-search")
-def get_student_form():
-    """Show form for searching for a student."""
-
-    return render_template("student_search.html")
-
-
-@app.route("/student-add")
-def display_student_add_form():
-    """Display form to add a student"""
-
-    return render_template("student-add.html")
-
-
-@app.route("/add-confirmation", methods=['POST'])
-def student_add():
-    """Add a student."""
-
-    firstname = request.form.get('firstname')
-    lastname = request.form.get('lastname')
-    github = request.form.get('github')
-
-    QUERY = """
-        INSERT INTO students
-            VALUES (:firstname, :lastname, :github)
-        """
-
-    hackbright.db.session.execute(QUERY, {'firstname': firstname,
-                               'lastname': lastname,
-                               'github': github})
-    hackbright.db.session.commit()
-
-    return render_template("confirmation.html",
-                           firstname=firstname,
-                           lastname=lastname,
-                           github=github)
 
 @app.route("/project/<project_title>")
 def display_project_info(project_title):
@@ -89,6 +52,81 @@ def display_project_info(project_title):
                            description=description,
                            max_grade=max_grade,
                            student_grades=student_grades)
+
+# Search
+
+@app.route("/student-search")
+def get_student_form():
+    """Show form for searching for a student."""
+
+    return render_template("student_search.html")
+
+
+# Add elements routes
+
+@app.route("/student-add")
+def display_student_add_form():
+    """Display form to add a student"""
+
+    return render_template("student-add.html")
+
+
+
+@app.route("/student-confirmation", methods=['POST'])
+def student_add():
+    """Add a student."""
+
+    firstname = request.form.get('firstname')
+    lastname = request.form.get('lastname')
+    github = request.form.get('github')
+
+    QUERY = """
+        INSERT INTO students
+            VALUES (:firstname, :lastname, :github)
+        """
+
+    hackbright.db.session.execute(QUERY, {'firstname': firstname,
+                               'lastname': lastname,
+                               'github': github})
+    hackbright.db.session.commit()
+
+    return render_template("confirmation.html",
+                           firstname=firstname,
+                           lastname=lastname,
+                           github=github)
+
+
+@app.route("/project-add")
+def display_project_add_form():
+    """Display form to add a project"""
+
+    return render_template("project-add.html")
+
+
+
+@app.route("/project-confirmation", methods=['POST'])
+def project_add():
+    """Add a project."""
+
+    title = request.form.get('title')
+    description = request.form.get('description')
+    max_grade = request.form.get('max_grade')
+
+    QUERY = """
+        INSERT INTO projects (title, description, max_grade)
+            VALUES (:title, :description, :max_grade)
+        """
+
+    hackbright.db.session.execute(QUERY, {'title': title,
+                               'description': description,
+                               'max_grade': max_grade})
+    hackbright.db.session.commit()
+
+    return render_template("project-confirmation.html",
+                           title=title,
+                           description=description,
+                           max_grade=max_grade)
+
 
 
 if __name__ == "__main__":

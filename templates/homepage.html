@@ -11,11 +11,13 @@
     <ul>
     {% for title, description, max_grade in projects %}
       <li>
-          <a href="/project/{{ project[0] }}">{{ title }}</a>: 
+          <a href="/project/{{ title }}">{{ title }}</a>: 
           {{ description }} (max grade = {{ max_grade }})
       </li>
     {% endfor %}
     </ul>
+    <br>
+    <h3><a href="/project-add">Add a new project</a></h3>
 
 <!-- List students with links to their student info pages -->
     <h3>Students</h3>
@@ -27,5 +29,7 @@
       </li>
     {% endfor %}
     </ul>
+    <br>
+    <h3><a href="/student-add">Add a new student</a></h3>
   </body>
 </html>
