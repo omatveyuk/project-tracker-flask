@@ -13,7 +13,10 @@
 <h3> List of students with grades</h3>
 <ul>
 {% for student in student_grades %}
-    <li>{{ student[0] }} {{ student[1] }}: {{ student[2] }}</li>    
+    <li>
+        <a href="/student?github={{ student[2] }}">{{ student[0] }} {{ student[1] }}</a>: 
+        {{ student[3] }}
+    </li>    
 {% endfor %}
 </ul>
 

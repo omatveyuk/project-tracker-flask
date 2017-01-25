@@ -3,7 +3,18 @@ import hackbright
 
 
 app = Flask(__name__)
-#connect_to_db(app)
+
+@app.route("/")
+def get_homepage():
+  """Display homepage"""
+
+  students = hackbright.get_students()
+  projects = hackbright.get_projects()
+
+  return render_template('homepage.html',
+                         students=students,
+                         projects=projects)
+
 
 @app.route("/student")
 def get_student():
@@ -70,8 +81,8 @@ def display_project_info(project_title):
     for student in github_grades:
         # student[0] contains the github
         first, last, github = hackbright.get_student_by_github(student[0])
-        # student[1] contains the students grades
-        student_grades.append((first, last, student[1]))
+        # student[1] contains the student's grades
+        student_grades.append((first, last, github, student[1]))
 
     return render_template("project_info.html",
                            title=title,

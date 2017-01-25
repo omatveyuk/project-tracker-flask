@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Homepage</title>
+  </head>
+  <body>
+    <h1>Welcome!</h1>
+
+<!-- List projects with links to project info pages -->
+    <h3>Projects</h3>
+    <ul>
+    {% for title, description, max_grade in projects %}
+      <li>
+          <a href="/project/{{ project[0] }}">{{ title }}</a>: 
+          {{ description }} (max grade = {{ max_grade }})
+      </li>
+    {% endfor %}
+    </ul>
+
+<!-- List students with links to their student info pages -->
+    <h3>Students</h3>
+    <ul>
+    {% for github, firstname, lastname in students %}
+      <li>
+          <a href="/student?github={{ github }}">{{ github }}</a>: 
+          {{ firstname }} {{ lastname }}
+      </li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
